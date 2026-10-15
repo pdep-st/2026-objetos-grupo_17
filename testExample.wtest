@@ -1,9 +1,48 @@
 import example.*
 
-describe "" {
-
-  test "" {
-    
+describe "tests de Guerreros" {
+  test "Goku ataca a Vegeta y su energia disminuye" {
+    const goku = new Guerrero(
+      poderOfensivo = 100,
+      experiencia = 0,
+      energia = 4000,
+      energiaInicial = 4000
+    )
+    const vegeta = new Guerrero(
+      poderOfensivo = 100,
+      experiencia = 0,
+      energia = 5000,
+      energiaInicial = 5000
+    )
+    goku.atacaA(vegeta)
+    assert.equals(4990, vegeta.energia())
   }
 
+  test "Goku ataca a Vegeta y su experiencia aumenta" {
+    const goku = new Guerrero(
+      poderOfensivo = 100,
+      experiencia = 0,
+      energia = 4000,
+      energiaInicial = 4000
+    )
+    const vegeta = new Guerrero(
+      poderOfensivo = 100,
+      experiencia = 0,
+      energia = 5000,
+      energiaInicial = 5000
+    )
+    goku.atacaA(vegeta)
+    assert.equals(1, vegeta.experiencia())
+  }
+
+  test "Vegeta come una semilla del ermitaño y su energia se restablece" {
+    const vegeta = new Guerrero(
+      poderOfensivo = 100,
+      experiencia = 0,
+      energia = 4000,
+      energiaInicial = 5000
+    )
+    vegeta.comeSemillaDelErmitanio()
+    assert.equals(5000, vegeta.energia())
+  }
 }

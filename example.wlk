@@ -1,8 +1,8 @@
 class Guerrero {
     const poderOfensivo
     const energiaInicial
-    var property experiencia
-    var property energia
+    var experiencia
+    var energia
 
     method disminuirEnergia(energiaASustraer) {
         energia -= energiaASustraer

@@ -4,6 +4,14 @@ class Guerrero {
     var experiencia
     var energia
 
+    method experiencia() {
+        return experiencia
+    }
+
+    method energia() {
+        return energia
+    }
+
     method disminuirEnergia(energiaASustraer) {
         energia -= energiaASustraer
     }

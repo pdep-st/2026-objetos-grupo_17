@@ -36,11 +36,9 @@ class Guerrero {
 
 }
 
-class TrajeComun {
-    const porcentajeProteccion
-
-    method danioRecibido(danioBase) {
-        return danioBase - ((porcentajeProteccion * danioBase)/ 10)
+class Traje {
+     method danioRecibido(danioBase) {
+        return danioBase
     }
 
     method experienciaGanada(experienciaBase) {
@@ -48,14 +46,18 @@ class TrajeComun {
     }
 }
 
+class TrajeComun inherits Traje {
+    const porcentajeProteccion
 
-class TrajeDeEntrenamiento {
-    var property multiplicador = 2
-    method danioRecibido(danioBase) {
-        return danioBase
+    override method danioRecibido(danioBase) {
+        return danioBase - ((porcentajeProteccion * danioBase)/ 10)
     }
+}
 
-    method experienciaGanada(experienciaBase) {
+class TrajeDeEntrenamiento inherits Traje {
+    var property multiplicador = 2
+
+    override method experienciaGanada(experienciaBase) {
         return experienciaBase * multiplicador
     }
 }

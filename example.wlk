@@ -40,7 +40,7 @@ class TrajeComun {
     const porcentajeProteccion
 
     method danioRecibido(danioBase) {
-        return danioBase * (porcentajeProteccion / 100)
+        return danioBase - ((porcentajeProteccion * danioBase)/ 10)
     }
 
     method experienciaGanada(experienciaBase) {

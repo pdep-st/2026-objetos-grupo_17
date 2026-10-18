@@ -5,11 +5,7 @@ class Guerrero {
     var energia
     var property traje
 
-    method traje(trajeElegido) {
-        traje = trajeElegido
-    }
-
-    method experiencia() {
+       method experiencia() {
         return experiencia
     }
 
@@ -19,6 +15,7 @@ class Guerrero {
 
     method disminuirEnergia(energiaASustraer) {
         energia = (energia - traje.danioRecibido(energiaASustraer)).max(0)
+        
     }
 
     method aumentarExperiencia(experienciaGanada) {
@@ -28,6 +25,7 @@ class Guerrero {
     method atacaA(otroGuerrero) {
         otroGuerrero.disminuirEnergia(0.1 * poderOfensivo)
         otroGuerrero.aumentarExperiencia(1)
+        otroGuerrero.traje().usar()
     }
 
     method comeSemillaDelErmitanio() {
@@ -37,7 +35,17 @@ class Guerrero {
 }
 
 class Traje {
-     method danioRecibido(danioBase) {
+    var desgaste = 0
+
+    method usar() {
+        desgaste += 5
+    }
+
+    method estaGastado() {
+        return desgaste >= 100
+    }
+
+    method danioRecibido(danioBase) {
         return danioBase
     }
 
@@ -50,7 +58,11 @@ class TrajeComun inherits Traje {
     const porcentajeProteccion
 
     override method danioRecibido(danioBase) {
-        return danioBase - ((porcentajeProteccion * danioBase)/ 10)
+        if (self.estaGastado()) {
+            return danioBase
+        }
+
+        return danioBase * (1 - porcentajeProteccion / 100)
     }
 }
 
@@ -58,6 +70,9 @@ class TrajeDeEntrenamiento inherits Traje {
     var property multiplicador = 2
 
     override method experienciaGanada(experienciaBase) {
+        if (self.estaGastado()) {
+            return experienciaBase
+        }
         return experienciaBase * multiplicador
     }
 }

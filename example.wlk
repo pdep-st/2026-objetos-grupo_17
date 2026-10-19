@@ -32,6 +32,10 @@ class Guerrero {
         energia = energiaInicial
     }
 
+    method poderOfensivo() {
+        return poderOfensivo
+    }
+
 }
 
 class Traje {
@@ -51,6 +55,10 @@ class Traje {
 
     method experienciaGanada(experienciaBase) {
         return experienciaBase
+    }
+
+    method cantidadElementos() {
+        return 1
     }
 }
 
@@ -117,8 +125,41 @@ class TrajeModular inherits Traje {
     override method experienciaGanada(experienciaBase) {
         return experienciaBase * (self.piezasSanas().size()/piezas.size())
     }
+
+    override method cantidadElementos() {
+        return piezas.size()
+    }
 }
 
 
 const goku = new Guerrero(poderOfensivo = 100, energia = 5000, experiencia = 0, traje = new TrajeDeEntrenamiento(multiplicador = 2))
 const vegeta = new Guerrero(poderOfensivo = 80, energia = 5000, experiencia = 0, traje = new TrajeComun(porcentajeProteccion = 3))
+
+class Torneo {
+    const modalidad
+    const guerrerosDisponibles
+    var property participantes = []
+
+    method seleccionarParticipantes() {
+        participantes = modalidad.seleccionar(guerrerosDisponibles.withoutDuplicates())
+        return participantes
+    }
+}
+
+object powerIsBest {
+    method seleccionar(guerreros) {
+        return guerreros.sortedBy({g1, g2 => g1.poderOfensivo() > g2.poderOfensivo()}).take(16)
+    }
+}
+
+object funny {
+    method seleccionar(guerreros) {
+        return guerreros.sortedBy({g1, g2 => g1.traje().cantidadElementos() > g2.traje().cantidadElementos()}).take(16)
+    }
+}
+
+object surprise {
+    method seleccionar(guerreros) {
+        return guerreros.randomized().take(16)
+    }
+}

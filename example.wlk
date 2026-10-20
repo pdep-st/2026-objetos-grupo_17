@@ -37,6 +37,10 @@ class Guerrero {
 class Traje {
     var desgaste = 0
 
+    method desgaste() {
+    return desgaste
+}
+
     method usar() {
         desgaste += 5
     }
